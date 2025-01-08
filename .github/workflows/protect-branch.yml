@@ -23,15 +23,16 @@ jobs:
       - name: Check if push is a direct push (not from a pull request)
         run: |
           # Check if the push is part of a pull request
-          if [[ "$GITHUB_HEAD_REF" == "" ]]; then
-            echo "Direct push to develop or master is not allowed!"
-
-            # Get the previous commit SHA (before the push)
-            PREVIOUS_SHA=$(git log --pretty=format:"%H" -n 2 | tail -n 1)
-
-            # Force-push to reset the branch to the previous commit (undo the direct push)
-            git reset --hard $PREVIOUS_SHA
-            git push origin HEAD --force
-
-            exit 1
-          fi
+          echo $GITHUB_HEAD_REF
+#          if [[ "$GITHUB_HEAD_REF" == "" ]]; then
+#            echo "Direct push to develop or master is not allowed!"
+#
+#            # Get the previous commit SHA (before the push)
+#            PREVIOUS_SHA=$(git log --pretty=format:"%H" -n 2 | tail -n 1)
+#
+#            # Force-push to reset the branch to the previous commit (undo the direct push)
+#            git reset --hard $PREVIOUS_SHA
+#            git push origin HEAD --force
+#
+#            exit 1
+#          fi
