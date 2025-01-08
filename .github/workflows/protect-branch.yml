@@ -10,7 +10,10 @@ jobs:
   undo-push:
     runs-on: ubuntu-latest
     steps:
-      - name: Check if push is direct push (not from a pull request)
+      - name: Checkout repository
+        uses: actions/checkout@v2  # Git 리포지토리 체크아웃
+
+      - name: Check if push is a direct push (not from a pull request)
         run: |
           # Check if the push is a direct push (not from a pull request)
           if [[ -z "$GITHUB_HEAD_REF" ]]; then
