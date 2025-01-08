@@ -23,7 +23,9 @@ jobs:
       - name: Check if push is a direct push (not from a pull request)
         run: |
           # Check if the push is part of a pull request
-          echo $GITHUB_HEAD_REF
+          echo "startt"
+          echo "$GITHUB_HEAD_REF"
+          echo "enddddd"
 #          if [[ "$GITHUB_HEAD_REF" == "" ]]; then
 #            echo "Direct push to develop or master is not allowed!"
 #
