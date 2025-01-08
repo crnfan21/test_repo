@@ -6,5 +6,6 @@ public class Main {
         System.out.println("add develop");
         System.out.println("direct push");
         System.out.println("pull request");
+        System.out.println("pull request2");
     }
 }
