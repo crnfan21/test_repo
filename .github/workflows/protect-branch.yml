@@ -11,20 +11,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2  # Git 리포지토리 체크아웃
+        uses: actions/checkout@v2
 
       - name: Check if push is a direct push (not from a pull request)
         run: |
-          # Check if the push is a direct push (not from a pull request)
-          if [[ -z "$GITHUB_HEAD_REF" ]]; then
+          # Check if the push is a direct push to develop or master (not from a PR)
+          if [[ "$GITHUB_REF" == refs/heads/* ]]; then
             echo "Direct push to develop or master is not allowed!"
-          
-            # Get the previous commit SHA (before the push)
+
+            # Reset the branch to the previous commit
             PREVIOUS_SHA=$(git rev-parse HEAD^1)
-          
-            # Force-push to reset the branch to the previous commit (undo the direct push)
+
+            # Force push to reset the branch to the previous commit (undo the direct push)
             git reset --hard $PREVIOUS_SHA
             git push origin HEAD --force
-          
+
             exit 1
           fi
