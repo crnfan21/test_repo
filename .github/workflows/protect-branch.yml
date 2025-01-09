@@ -12,34 +12,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Print all environment variables
-        run: env | sort
+    - name: Check event name
+      run: |
+        echo "Event name: ${{ github.event_name }}"
+        echo "${{ toJson(github.event) }}"
+        echo "Commit Message: $(git log -1 --pretty=%B)"
+        echo ${{ github.event.head_commit.message }}
 
-      - name: Checkout repository
-        uses: actions/checkout@v2
+#      - name: Checkout repository
+#        uses: actions/checkout@v2
+#
+#      - name: Set up Git user
+#        run: |
+#          git config user.name 'github-actions'
+#          git config user.email 'github-actions@github.com'
 
-      - name: Set up Git user
-        run: |
-          git config user.name 'github-actions'
-          git config user.email 'github-actions@github.com'
-
-      - name: Check if push is a direct push (not from a pull request)
-        run: |
-          # Check if the push is part of a pull request
-          echo "startt"
-          echo "GITHUB_REF=$GITHUB_REF"
-          echo "GITHUB_SHA=$GITHUB_SHA"
-          echo "GITHUB_HEAD_REF=$GITHUB_HEAD_REF"
-          echo "GITHUB_BASE_REF=$GITHUB_BASE_REF"
-          echo "GITHUB_EVENT_NAME=$GITHUB_EVENT_NAME"
-          echo "GITHUB_EVENT_PATH=$GITHUB_EVENT_PATH"
-          echo "GITHUB_REF_NAME=$GITHUB_REF_NAME"
-          echo "GITHUB_WORKSPACE=$GITHUB_WORKSPACE"
-          echo "GITHUB_COMMITTER=$GITHUB_COMMITTER"
-          echo "GITHUB_PR_ID=$GITHUB_PR_ID"
-          echo "GITHUB_REF_NAME=$GITHUB_REF_NAME"
-          echo "GITHUB_REF_NAME=$GITHUB_REF_NAME"
-          echo "enddddd"
+#      - name: Check if push is a direct push (not from a pull request)
+#        run: |
+#          # Check if the push is part of a pull request
 #          if [[ "$GITHUB_HEAD_REF" == "" ]]; then
 #            echo "Direct push to develop or master is not allowed!"
 #
