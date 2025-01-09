@@ -12,12 +12,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Check event name
-      env:
-        GITHUB_CONTEXT: ${{ toJson(github) }}
-      run: echo "$GITHUB_CONTEXT"
-#        echo "Commit Message: $(git log -1 --pretty=%B)"
-#        echo ${{ github.event.head_commit.message }}
+      - name: Check commit distinct values
+        run: |
+          DISTINCT_FALSE_COUNT=$(jq '[.commits[] | select(.distinct == false)] | length' <<< "${{ toJson(github.event) }}")
+          if [ "$DISTINCT_FALSE_COUNT" -gt 0 ]; then
+            echo "This is a Pull Request Merge."
+          else
+            echo "This is a Direct Push."
+          fi
+#    - name: Check event name
+#      env:
+#        GITHUB_CONTEXT: ${{ toJson(github) }}
+#      run: echo "$GITHUB_CONTEXT"
 
 #      - name: Checkout repository
 #        uses: actions/checkout@v2
