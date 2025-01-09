@@ -13,10 +13,9 @@ jobs:
 
     steps:
     - name: Check event name
-      run: |
-        echo "--start--"
-        echo "${{ toJson(github.event) }}"
-        echo "--end--"
+      env:
+        GITHUB_CONTEXT: ${{ toJson(github) }}
+      run: echo "$GITHUB_CONTEXT"
 #        echo "Commit Message: $(git log -1 --pretty=%B)"
 #        echo ${{ github.event.head_commit.message }}
 
