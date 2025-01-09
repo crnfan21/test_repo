@@ -21,5 +21,6 @@ public class Main {
         System.out.println("pr commit1");
         System.out.println("pr commit2");
         System.out.println("pull request7");
+        System.out.println("check");
     }
 }
