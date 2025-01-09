@@ -14,10 +14,11 @@ jobs:
     steps:
     - name: Check event name
       run: |
-        echo "Event name: ${{ github.event_name }}"
+        echo "--start--"
         echo "${{ toJson(github.event) }}"
-        echo "Commit Message: $(git log -1 --pretty=%B)"
-        echo ${{ github.event.head_commit.message }}
+        echo "--end--"
+#        echo "Commit Message: $(git log -1 --pretty=%B)"
+#        echo ${{ github.event.head_commit.message }}
 
 #      - name: Checkout repository
 #        uses: actions/checkout@v2
