@@ -22,7 +22,7 @@ jobs:
           git config user.email 'github-actions@github.com'
 
       - name: Download commit SHA artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: commit-sha
 
@@ -56,7 +56,7 @@ jobs:
           echo "LAST_COMMIT_SHA=$(git rev-parse HEAD)" > last_commit_sha.txt
 
       - name: Upload commit SHA as artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: commit-sha
           path: last_commit_sha.txt
