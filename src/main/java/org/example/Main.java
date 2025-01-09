@@ -16,5 +16,6 @@ public class Main {
         System.out.println("pull request5");
         System.out.println("pull request6");
         System.out.println("commit1");
+        System.out.println("commit2");
     }
 }
