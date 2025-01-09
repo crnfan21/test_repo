@@ -23,9 +23,7 @@ jobs:
 
       - name: Check if push is a direct push (not from a pull request)
         run: |
-          git fetch origin
-          git checkout develop
-          echo "commit_cnt=$(git log --oneline origin/develop.HEAD | wc -l)"
+          echo "commit_cnt=$(git log --oneline origin/develop..HEAD | wc -l)"
           
           echo '${{ toJson(github.event) }}' > event.json
           DISTINCT_FALSE_COUNT=$(jq '[.commits[] | select(.distinct == false)] | length' event.json)
