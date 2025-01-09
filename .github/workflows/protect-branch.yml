@@ -23,6 +23,7 @@ jobs:
 
       - name: Check if push is a direct push (not from a pull request)
         run: |
+          git fetch origin
           echo "commit_cnt=$(git log --oneline origin/develop.HEAD | wc -l)"
           
           echo '${{ toJson(github.event) }}' > event.json
