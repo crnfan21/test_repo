@@ -21,7 +21,19 @@ jobs:
           git config user.name 'github-actions'
           git config user.email 'github-actions@github.com'
 
-      - name: Download commit SHA artifact
+      - name: Check if commit-sha file exists
+        id: check_commit_sha
+        run: |
+          if [ -f "commit-sha.txt" ]; then
+            echo "commit-sha.txt exists"
+            echo "commit_sha_exists=true" >> $GITHUB_ENV
+          else
+            echo "commit-sha.txt does not exist"
+            echo "commit_sha_exists=false" >> $GITHUB_ENV
+          fi
+
+      - name: Download commit-sha artifact
+        if: env.commit_sha_exists == 'true'
         uses: actions/download-artifact@v3
         with:
           name: commit-sha
