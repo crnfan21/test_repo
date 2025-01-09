@@ -32,23 +32,22 @@ jobs:
 #            echo "commit_sha_exists=false" >> $GITHUB_ENV
 #          fi
 
-      - name: Download commit-sha artifact
-#        if: env.commit_sha_exists == 'true'
-        uses: actions/download-artifact@v3
-        with:
-          name: commit-sha
-          path: ./
-
-      - name: Check if commit SHA file exists
-        id: check_file
-        run: |
-          if [ -f last_commit_sha.txt ]; then
-            echo "File exists."
-            echo "file_exists=true" >> $GITHUB_ENV
-          else
-            echo "File does not exist."
-            echo "file_exists=false" >> $GITHUB_ENV
-          fi
+#      - name: Download commit-sha artifact
+#        uses: actions/download-artifact@v3
+#        with:
+#          name: commit-sha
+#          path: ./
+#
+#      - name: Check if commit SHA file exists
+#        id: check_file
+#        run: |
+#          if [ -f last_commit_sha.txt ]; then
+#            echo "File exists."
+#            echo "file_exists=true" >> $GITHUB_ENV
+#          else
+#            echo "File does not exist."
+#            echo "file_exists=false" >> $GITHUB_ENV
+#          fi
 
       - name: Compare and count new commits
         if: env.file_exists == 'true'  # 파일이 존재하는 경우에만 실행
@@ -66,13 +65,14 @@ jobs:
 
       - name: Save last commit SHA
         run: |
-          echo "LAST_COMMIT_SHA=$(git rev-parse HEAD)" > last_commit_sha.txt
-
-      - name: Upload commit SHA as artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: commit-sha
-          path: last_commit_sha.txt
+          echo "$(git rev-parse HEAD)"
+#          echo "LAST_COMMIT_SHA=$(git rev-parse HEAD)" > last_commit_sha.txt
+#
+#      - name: Upload commit SHA as artifact
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: commit-sha
+#          path: last_commit_sha.txt
 
 #      - name: Check if push is a direct push (not from a pull request)
 #        run: |
