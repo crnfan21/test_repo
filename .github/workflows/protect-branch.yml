@@ -12,27 +12,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check commit distinct values
+
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Git user
         run: |
+          git config user.name 'github-actions'
+          git config user.email 'github-actions@github.com'
+
+      - name: Check if push is a direct push (not from a pull request)
+        run: |
+          echo "commit_cnt=$(git log --oneline origin/branch_name..HEAD | wc -l)"
+          
           echo '${{ toJson(github.event) }}' > event.json
           DISTINCT_FALSE_COUNT=$(jq '[.commits[] | select(.distinct == false)] | length' event.json)
-          if [ "$DISTINCT_FALSE_COUNT" -gt 0 ]; then
-            echo "This is a Pull Request Merge."
-          else
+          if [ "$DISTINCT_FALSE_COUNT" -eq 0 ]; then
             echo "This is a Direct Push."
           fi
-#    - name: Check event name
-#      env:
-#        GITHUB_CONTEXT: ${{ toJson(github) }}
-#      run: echo "$GITHUB_CONTEXT"
-
-#      - name: Checkout repository
-#        uses: actions/checkout@v2
-#
-#      - name: Set up Git user
-#        run: |
-#          git config user.name 'github-actions'
-#          git config user.email 'github-actions@github.com'
 
 #      - name: Check if push is a direct push (not from a pull request)
 #        run: |
