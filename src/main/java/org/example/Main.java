@@ -9,5 +9,6 @@ public class Main {
         System.out.println("pull request2");
         System.out.println("pull request3");
         System.out.println("push");
+        System.out.println("pull request4");
     }
 }
