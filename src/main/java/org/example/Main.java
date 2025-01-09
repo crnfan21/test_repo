@@ -7,5 +7,6 @@ public class Main {
         System.out.println("direct push");
         System.out.println("pull request");
         System.out.println("pull request2");
+        System.out.println("pull request3");
     }
 }
