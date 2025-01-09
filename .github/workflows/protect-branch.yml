@@ -24,11 +24,11 @@ jobs:
       - name: Check if commit-sha file exists
         id: check_commit_sha
         run: |
-          if [ -f "commit-sha.txt" ]; then
-            echo "commit-sha.txt exists"
+          if [ -f "last_commit_sha.txt" ]; then
+            echo "last_commit_sha.txt exists"
             echo "commit_sha_exists=true" >> $GITHUB_ENV
           else
-            echo "commit-sha.txt does not exist"
+            echo "last_commit_sha.txt does not exist"
             echo "commit_sha_exists=false" >> $GITHUB_ENV
           fi
 
@@ -37,6 +37,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: commit-sha
+          path: ./
 
       - name: Check if commit SHA file exists
         id: check_file
